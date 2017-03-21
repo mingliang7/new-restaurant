@@ -126,7 +126,8 @@ Template._sale_invoice_tabs.helpers({
 Template.saleDetail.events({
     'change .qtyOut' (event, instance) {
         let currentValue = event.currentTarget.value;
-        if (currentValue == '' || (currentValue != '' && parseFloat(currentValue) < 0)) {
+        let currentQtyIn = this.quantity + this.quantityOut;
+        if (currentValue == '' || (currentValue != '' && currentQtyIn< parseFloat(currentValue)) || parseFloat(currentValue) < 0) {
             $(event.currentTarget).val(this.quantityOut);
         } else {
             Meteor.call('updateQtyOut', this, parseInt(currentValue));

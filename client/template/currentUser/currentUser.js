@@ -39,6 +39,10 @@ Template.current_user.events({
         instance.query.set(event.currentTarget.value)
     },300),
     "click .printedSale"(event,instance){
-        Router.go(`/restaurant/sale/${this.doc.tableLocation}/table/${this.doc.tableId}/saleInvoice/${this._id}/payment`);
+        if(this.printStatus){
+            Router.go(`/restaurant/sale/${this.doc.tableLocation}/table/${this.doc.tableId}/saleInvoice/${this._id}`);
+        }else{
+            Router.go(`/restaurant/sale/${this.doc.tableLocation}/table/${this.doc.tableId}/saleInvoice/${this._id}/payment`);
+        }
     }
 });

@@ -20,7 +20,7 @@ Meteor.publish('units', () => {
     return Restaurant.Collection.Units.find();
 });
 Meteor.publish('categories', () => {
-    return Restaurant.Collection.Categories.find({}, {limit: 10});
+    return Restaurant.Collection.Categories.find({}, {limit: 50});
 });
 Meteor.publish('category', (categoryId) => {
     let categories = Restaurant.Collection.Categories.find(categoryId);
