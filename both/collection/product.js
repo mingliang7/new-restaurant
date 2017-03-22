@@ -171,7 +171,7 @@ Restaurant.Collection.Products.search = function(query, limit) {
 
     }, {
         categoryId: query
-    }, {typeScheme: {$exists: eval(query)}}]
+    }]
 
     return Restaurant.Collection.Products.find(selector, {
         sort: {

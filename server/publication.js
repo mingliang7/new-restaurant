@@ -199,11 +199,11 @@ Meteor.publish('activeSalesCount', function () {
 
 
 //product search
-Meteor.publish('productsSearch', function (query, limit) {
+Meteor.publish('productsSearch', function (query, limit, scheme) {
     if (_.isEmpty(query)) {
         return this.ready();
     }
-    let limitAmount = limit || 10;
+    let limitAmount = limit || 50;
     let restaurant = Restaurant.Collection.Products.search(query, limitAmount);
     return restaurant;
 });

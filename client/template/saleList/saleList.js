@@ -1,8 +1,7 @@
 Deps.autorun(function() {
-    if (Session.get('searchListQuery')) {
+    if (Session.get('searchListQuery') || Session.get('scheme')) {
         Meteor.subscribe('productsSearch', Session.get(
-            'searchListQuery'), Session.get('limit'), Session.get(
-            'filter'));
+            'searchListQuery'), Session.get('limit'));
     }
     if (Session.get('subImages')) {
         Meteor.subscribe('pubImages', {
@@ -25,8 +24,6 @@ Template.restaurantSaleList.created = function() {
             });
             Session.set('searchListQuery', category ? category._id :
                 '');
-            Session.set('activeCategoryId', category ? category._id :
-                '');
         }
     });
 
@@ -38,8 +35,8 @@ Template.restaurantSaleList.rendered = function() {
 };
 Template.restaurantSaleList.events({
     'click .scheme' (event, instance) {
-        Session.set('searchListQuery', 'true');
-        instance.typeScheme.set(true);
+        Session.set('searchListQuery', '');
+        Session.set('scheme', true);
         Session.set('activeSearch', false);
         Session.set('activeCategoryId', '');
 
@@ -291,6 +288,7 @@ Template._saleListItem.helpers({
 });
 Template.restaurantSaleList.onDestroyed(function() {
     Session.set('subImages', undefined);
+    Session.set('scheme', undefined)
 });
 var checkDiscount = (e) => {
     let parents = $(e.currentTarget).parents('.row'); //find parents element of current obj
