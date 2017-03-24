@@ -1,7 +1,10 @@
 Template.layout.onRendered(function() {
     $(window).on("keydown", function(e) {
+        console.log(e.which)
         if (e.which == 120) {
             Router.go('/');
+        }else if(e.which == 121){
+            Router.go('/restaurant/selectTable');
         }
     });
 });

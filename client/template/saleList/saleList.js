@@ -30,7 +30,7 @@ Template.restaurantSaleList.created = function() {
 };
 Template.restaurantSaleList.rendered = function() {
     $('.search').focus();
-    Session.set('limit', 10);
+    Session.set('limit', 30);
     Session.set('filter', {});
 };
 Template.restaurantSaleList.events({
