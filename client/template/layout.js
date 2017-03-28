@@ -3,7 +3,7 @@ Template.layout.onRendered(function() {
         console.log(e.which)
         if (e.which == 120) {
             Router.go('/');
-        }else if(e.which == 121){
+        }else if(e.which == 119){
             Router.go('/restaurant/selectTable');
         }
     });
