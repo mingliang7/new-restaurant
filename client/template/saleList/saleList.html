@@ -10,6 +10,11 @@
         </ul>
     </div>
     <div class="col-33">
+        <div class="product-list">
+            {{#each products}}
+                {{> _saleListItem}}
+            {{/each}}
+        </div>
         <div class="list card">
 
             <label class="item-input-wrapper">
@@ -20,29 +25,30 @@
                        style="width: 100%; border: 1px solid #ddd" class="search">
             </label>
         </div>
-            {{#each products}}
-                 <div class="col col-50" style="float: left;">
-                    {{> _saleListItem}}
-                </div>
-            {{/each}}
+
     </div>
 </template>
 
 
 <template name="_saleListItem">
-    <div class="card animated fadeIn order" style="width: 90%; margin-top: -5%; cursor: pointer;">
-      <div class="item item-text-wrap" style="background: #fff;">
-            <img src="{{images}}">
-            <h2>{{name}}({{enName}})</h2>
-            <!-- <p>តម្លៃៈ <b>{{numFormat price '0,0'}} ៛</b> | គិតជាៈ <b>{{_unit.name}}</b></p> -->
-            <p>{{numFormat price '0,0'}} ៛</p>
-        </div>
-    </div>
     <!--<a href="#" class="item cursor-p order">-->
     <!--<p>-->
     <!--<b>{{name}}({{enName}})</b> | តម្លៃៈ <b>{{price}}</b> | គិតជាៈ <b>{{_unit.name}}</b>-->
     <!--</p>-->
     <!--</a>-->
+
+        <div class="list order animated fadeIn">
+                <span class="list-effect">
+
+                </span>
+            <span class="list-text">
+                    <b>{{name}}({{enName}})</b>
+                </span>
+            <p>{{_unit.name}}</p>
+            <p class="price">
+                <b>{{numFormat price '0,0'}} ៛ </b>
+            </p>
+        </div>
 </template>
 
 

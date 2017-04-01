@@ -13,8 +13,8 @@ Template.restaurantSaleTableSaleInvoice.created = function() {
     let saleId = Router.current().params.invoiceId;
     Session.set('limit', 10);
     Session.set('saleDetailObj', {});
-    Session.set('saleDetailLimited', 5) // using for limit
-    Session.set('detachSaleDetailObj', {}) //using for detach sale detail
+    Session.set('saleDetailLimited', 5); // using for limit
+    Session.set('detachSaleDetailObj', {}); //using for detach sale detail
     this.autorun(() => {
         this.subscribe = Meteor.subscribe("sale", saleId);
         this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
@@ -37,7 +37,7 @@ Template.restaurantSaleTableSaleInvoice.rendered = function() {
     } catch (e) {
 
     }
-}
+};
 
 Template.restaurantSaleTableSaleInvoice.helpers({
     invoiceNumber() {
@@ -115,7 +115,7 @@ Template._sale_invoice_tabs.helpers({
         noPayment() {
             let sale = Restaurant.Collection.Sales.findOne(Router.current()
                 .params.invoiceId);
-            console.log(sale.paidAmount <= 0)
+            console.log(sale.paidAmount <= 0);
             if (sale.paidAmount <= 0) {
                 return true;
             }
@@ -134,8 +134,24 @@ Template.saleDetail.events({
         }
     },
     'keypress .qtyOut': function(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        let charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    },
+    'click .qty-in-up'(event,instance){
+        let qtyInValue = $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val();
+        $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val(parseFloat(qtyInValue) + 1).trigger('change');
+    },
+    'click .qty-in-down'(event,instance){
+        let qtyInValue = $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val();
+        $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val(parseFloat(qtyInValue) - 1).trigger('change');
+    },
+    'click .qty-out-up'(event,instance){
+        let qtyOutValue = $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val();
+        $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val(parseFloat(qtyOutValue) + 1).trigger('change');
+    },
+    'click .qty-out-down'(event,instance){
+        let qtyOutValue = $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val();
+        $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val(parseFloat(qtyOutValue) - 1).trigger('change');
     },
     'change .qtyIn' (event, instance) {
         let currentQty = parseFloat($(event.currentTarget).attr('qtyIn'));
@@ -149,7 +165,7 @@ Template.saleDetail.events({
         
     },
     'keypress .qtyIn': function(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        let charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     },
     'click .remove-sale-detail' () {
@@ -177,12 +193,12 @@ Template.saleDetail.events({
         });
     },
     'click .detach' (e) {
-        let numberOfCustomer = $('.numberOfCustomer').text().trim()
+        let numberOfCustomer = $('.numberOfCustomer').text().trim();
         let detachObj = Session.get('detachSaleDetailObj');
         let currentProp = $(e.currentTarget).prop('checked');
         let currentDate = $('.saleDate').text().trim();
         if (currentProp) {
-            detachObj[this._id] = this._id
+            detachObj[this._id] = this._id;
             detachObj[this._id] = {
                 saleDate: currentDate,
                 oldSaleId: this.saleId,
@@ -233,7 +249,7 @@ Template.saleInvoiceTotal.helpers({
         },
         multiply: function(val1, val2, id) {
             if (val1 != null && val2 != null) {
-                var value = (val1 / val2);
+                let value = (val1 / val2);
                 if (id != null && id == "KHR") {
                     value = roundRielCurrency(value);
                     return numeral(value).format('0,0.00');
@@ -243,9 +259,9 @@ Template.saleInvoiceTotal.helpers({
         },
         exchangeRate: function() {
             let invoiceId = Router.current().params.invoiceId;
-            var sale = Restaurant.Collection.Sales.findOne(invoiceId);
+            let sale = Restaurant.Collection.Sales.findOne(invoiceId);
             if (sale != null) {
-                var selector = {
+                let selector = {
                     _id: sale.exchangeRateId
                 };
                 return ReactiveMethod.call('findOneRecord',
@@ -253,15 +269,15 @@ Template.saleInvoiceTotal.helpers({
                 );
                 // return Restaurant.Collection.ExchangeRates.findOne(sale.exchangeRateId);
             } else {
-                var id = "";
-                var company = Restaurant.Collection.Company.findOne();
+                let id = "";
+                let company = Restaurant.Collection.Company.findOne();
                 if (company != null) {
                     id = company.baseCurrency;
                 }
-                var selector = {
+                let selector = {
                     base: id
                 };
-                var option = {
+                let option = {
                     sort: {
                         _id: -1,
                         createdAt: -1
@@ -320,7 +336,7 @@ Template.saleDetail.helpers({
             }
             return false;
         }
-})
+});
 
 Template._sale_invoice_tabs.helpers({
     hasDetachSaleDetail() {
@@ -352,7 +368,7 @@ Template._sale_invoice_tabs.events({
     'click .cancel-and-copy' () {
         let params = Router.current().params;
         let invoiceId = params.invoiceId;
-        let tableLocationId = params.tableLocationId;;
+        let tableLocationId = params.tableLocationId;
         let tableId = params.tableId;
         let selector = {};
         selector.saleDate = moment().toDate();
@@ -363,7 +379,7 @@ Template._sale_invoice_tabs.events({
             title: 'បញ្ជាក់',
             template: `តើអ្នកពិតជាចង់ផ្អាកនិងកូពីវិក័យប័ត្រមួយនេះឬ?`,
             onOk: () => {
-                IonLoading.show()
+                IonLoading.show();
                 Meteor.call('cancelAndCopy', selector,
                     invoiceId, (err, result) => {
                         if (err) {
@@ -371,17 +387,17 @@ Template._sale_invoice_tabs.events({
                                 `ផ្អាកវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`,
                                 'danger',
                                 'growl-bottom-right',
-                                'fa-remove')
+                                'fa-remove');
                             IonLoading.hide()
                         } else {
                             let params = Router.current()
                                 .params;
-                            IonLoading.hide()
+                            IonLoading.hide();
                             Bert.alert(
                                 `ផ្អាកវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`,
                                 'success',
                                 'growl-bottom-right',
-                                'fa-check')
+                                'fa-check');
                             Router.go(
                                 `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`
                             );
@@ -399,7 +415,7 @@ Template._sale_invoice_tabs.events({
             title: 'បញ្ជាក់',
             template: `តើអ្នកពិតជាចង់ផ្អាកវិក័យប័ត្រមួយនេះឬ?`,
             onOk: () => {
-                IonLoading.show()
+                IonLoading.show();
                 Meteor.call('cancelInvoice', invoiceId, (
                     err, result) => {
                     if (err) {
@@ -407,17 +423,17 @@ Template._sale_invoice_tabs.events({
                             `ផ្អាកវិក័យប័ត្រមិនបានជោគជ័យ!`,
                             'danger',
                             'growl-bottom-right',
-                            'fa-remove')
+                            'fa-remove');
                         IonLoading.hide()
                     } else {
                         let params = Router.current()
                             .params;
-                        IonLoading.hide()
+                        IonLoading.hide();
                         Bert.alert(
                             `ផ្អាកវិក័យប័ត្របានជោគជ័យ!`,
                             'success',
                             'growl-bottom-right',
-                            'fa-check')
+                            'fa-check');
                         Router.go(
                             '/restaurant/selectTable'
                         );
@@ -441,7 +457,7 @@ Template._sale_invoice_tabs.events({
             title: 'បញ្ជាក់',
             template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
             onOk: () => {
-                IonLoading.show()
+                IonLoading.show();
                 Meteor.call('detachSaleDetail', params.tableId,
                     params.tableLocationId, detachObj, (
                         err, result) => {
@@ -450,17 +466,17 @@ Template._sale_invoice_tabs.events({
                                 `បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`,
                                 'danger',
                                 'growl-bottom-right',
-                                'fa-remove')
+                                'fa-remove');
                             IonLoading.hide()
                         } else {
                             let params = Router.current()
                                 .params;
-                            IonLoading.hide()
+                            IonLoading.hide();
                             Bert.alert(
                                 `បំបែកវិក័យប័ត្របានជោគជ័យ!`,
                                 'success',
                                 'growl-bottom-right',
-                                'fa-check')
+                                'fa-check');
                             Session.set(
                                 'detachSaleDetailObj', {}
                             );
@@ -480,7 +496,7 @@ Template._sale_invoice_tabs.events({
 
 
 let goToNewInvoice = (location, tableId, saleId) => {
-    console.log(saleId)
+    console.log(saleId);
     IonPopup.confirm({
         title: 'បញ្ជាក់',
         template: `ចូលទៅកាន់វិក័យប័ត្រថ្មី`,
@@ -493,7 +509,7 @@ let goToNewInvoice = (location, tableId, saleId) => {
             console.log('cancel')
         }
     });
-}
+};
 
 
 Template.restaurantSaleList.helpers({
@@ -506,4 +522,4 @@ Template.restaurantSaleList.helpers({
 
         return false;
     }
-})
+});

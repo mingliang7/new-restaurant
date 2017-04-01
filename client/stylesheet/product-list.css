@@ -1,0 +1,105 @@
+.col-33 > .product-list {
+    float: left;
+    margin-top: 75px;
+    width: 550px;
+    height: 1000px;
+    position: absolute;
+    overflow-y: auto;
+    transition: all 250ms cubic-bezier(0.23, 1, 0.23, 0.99);
+    transform: scaleY(-15px);
+    opacity: 1;
+}
+.col-33 > .product-list > .list {
+    width: 156.66px;
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    height: 150px;
+    float: left;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.28);
+}
+.col-33 > .product-list > .list > .list-text {
+    position: relative;
+}
+.col-33 > .product-list > .list > p.price {
+    position: absolute;
+    color: #888;
+    bottom: 0;
+}
+.col-33 > .product-list > .list > .list-effect {
+    width: 156.66px;
+    padding: 10px;
+    height: 150px;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgb(0,151,167);
+    top: 0px;
+    left: 0px;
+    transition: all 250ms cubic-bezier(0.23, 1, 0.23, 0.99);
+    transform: scaleX(0);
+    transform-origin: right;
+    opacity: 0;
+}
+
+.col-33 > .product-list > .list:hover  {
+    color: #fff;
+}
+.col-33 > .product-list > .list:hover > p.price {
+    color: #fff;
+}
+.col-33 > .product-list > .list:hover >  .list-effect{
+    transform: scaleX(1);
+    opacity: 0.6;
+}
+
+
+.col-33 > .product-list > .list:active {
+    background-color: #387EF5;
+}
+
+
+.qty-in-up, .qty-out-up{
+    background: #387EF5;
+    color: #ffffff;
+    border-color: #387EF5;
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    top: -2px;
+    width: 50px;
+    display: none;
+    transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+}
+
+.qty-in-down, .qty-out-down{
+    background: #EF473A;
+    color: #ffffff;
+    border-color: #EF473A;
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 50px;
+    display: none;
+    transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+}
+
+.qty-change-in:hover > .qty-in-up{
+    display: block;
+}
+.qty-change-in:hover > .qty-in-down {
+    display: block;
+}
+.qty-change-out:hover > .qty-out-up{
+    display: block;
+}
+.qty-change-out:hover > .qty-out-down {
+    display: block;
+}

@@ -71,7 +71,7 @@
 
 <template name="saleDetail">
     <!-- <div class="item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}"> -->
-    <div class="row item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
+    <div style="padding: 15px;" class="row item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
         <div class="col col-20">
             <h4>{{_product.name}}</h4>
             {{#if note}}
@@ -80,10 +80,12 @@
                 </p>
             {{/if}}
         </div>
-        <div class="col col-10">
+        <div class="col col-10 qty-change-in">
             {{#if noPayment}}
                 {{#if isPrinting}}
-                    <input type="number" qtyIn="{{sumQty quantity quantityOut}}" qtyOut="{{quantityOut}}" value="{{sumQty quantity quantityOut}}" class="qtyIn" style="margin-top: 5%;background: #ddd; font-size: 13px;width: 100%;">
+                    <button class="qty-in-up"><i class="icon ion-plus"></i></button>
+                     <input type="number" qtyIn="{{sumQty quantity quantityOut}}" qtyOut="{{quantityOut}}" value="{{sumQty quantity quantityOut}}" class="qtyIn" style="margin-top: 5%;background: #ddd; font-size: 13px;width: 100%;">
+                    <button class="qty-in-down"><i class="icon ion-minus"></i></button>
                 {{else}}
                     <input type="number" value="{{sumQty quantity quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
                 {{/if}}
@@ -91,10 +93,12 @@
                 <input type="number" value="{{sumQty quantity quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
             {{/if}}
         </div>
-        <div class="col col-10">
+        <div class="col col-10 qty-change-out">
             {{#if noPayment}}
                 {{#if isPrinting}}
+                    <button class="qty-out-up "><i class="icon ion-plus"></i></button>
                     <input type="number" value="{{quantityOut}}" class="qtyOut" style="margin-top: 5%;background: #ddd; font-size: 13px;width: 100%;">
+                    <button class="qty-out-down"><i class="icon ion-minus"></i></button>
                 {{else}}
                     <input type="number" value="{{quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
                 {{/if}}

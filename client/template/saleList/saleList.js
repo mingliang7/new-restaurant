@@ -34,27 +34,17 @@ Template.restaurantSaleList.rendered = function() {
     Session.set('filter', {});
 };
 Template.restaurantSaleList.events({
-    'click .scheme' (event, instance) {
-        Session.set('searchListQuery', '');
-        Session.set('scheme', true);
-        Session.set('activeSearch', false);
-        Session.set('activeCategoryId', '');
-
-    },
     'click .selectCategory': function(event, instance) {
         Session.set('searchListQuery', this._id);
         Session.set('activeCategoryId', this._id);
         Session.set('activeSearch', false);
-        instance.typeScheme.set(false);
 
     },
     'keyup input.search': function(event, template) {
         Session.set('searchListQuery', event.target.value);
-        Session.set('limit', 10);
+        Session.set('limit', 50);
         Session.set('activeSearch', true);
         Session.set('activeCategoryId', '');
-        instance.typeScheme.set(false);
-
     },
     'click .order' (event) {
         let saleDetailObj = Session.get('saleDetailObj');
