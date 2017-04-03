@@ -7,7 +7,8 @@ Template.restaurantSalePayment.created = function() {
 Template.restaurantSalePayment.rendered = function() {
   $(document).on("keydown", function(e) {
     if (e.which == 13) {
-        $('.savePrint').trigger('click');
+        // $('.savePrint').trigger('click');
+        e.preventDefault();
     }
   });
   Meteor.setTimeout(function(){
@@ -123,7 +124,7 @@ AutoForm.hooks({
         //window.open(`/restaurant/invoice/${result}`, '_blank');
         Router.go(`/restaurant/invoice/${result}`);
       } else {
-        Router.go(`/restaurant/payment`);
+        Router.go(`/`);
       }
       Session.set('savePrint', false);
 
