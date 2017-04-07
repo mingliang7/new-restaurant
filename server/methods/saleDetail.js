@@ -4,11 +4,12 @@ Meteor.methods({
         for (let k in selector) {
             let product = Restaurant.Collection.Products.findOne(selector[k]._id);
             let category = Restaurant.Collection.Categories.findOne(product.categoryId);
+            let increaseQty =  category ? category.increaseChildQty || 1 : 1;
             saleDetails.push({
                 saleId: selector[k].saleId,
                 productId: selector[k]._id,
                 discount: selector[k].discount,
-                amount: selector[k].typeScheme ? selector[k].amount : selector[k].price * category.increaseChildQty || 1,
+                amount: selector[k].typeScheme ? selector[k].amount : selector[k].price * increaseQty,
                 quantity: selector[k].typeScheme ? selector[k].quantity : category.increaseChildQty || 1,
                 price: selector[k].price
             });
