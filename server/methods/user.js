@@ -32,6 +32,7 @@ Meteor.methods({
                 status: 'active'
             },
             email: doc.email,
+            username: doc.username,
             password: doc.password,
             roles: doc.roles
         };

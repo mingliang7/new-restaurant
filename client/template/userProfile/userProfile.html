@@ -23,8 +23,11 @@
             <div class="card">
                 {{#each users}}
                     <div class="row">
-                        <div class="col col-25" style="border: 1px solid #ddd;">{{profile.username}}</div>
-
+                        <div class="col col-25" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive select-username" data-id="{{_id}}" data-ion-modal="_editProfile">
+                                {{profile.username}}
+                            </a>
+                        </div>
                         {{#if profile.approved}}
                             <div class="col col-25" style="border: 1px solid #ddd;">
                             <span class="cursor-p approved-toggle">
@@ -52,7 +55,7 @@
                             <div class="col col-50" style="border: 1px solid #ddd;">​គ្មានតួនាទី
                                 <span class="pull-right">
                                     <a href="#" class="positive" data-ion-modal="_selectRole"
-                                    data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ
+                                       data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ
                                     </a>
                                 </span>
                             </div>

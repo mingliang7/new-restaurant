@@ -51,5 +51,8 @@ Template.restaurantUserProfiles.events({
         Bert.alert('ផ្តល់សិទ្ធបានជោគជ័យ!', 'success', 'growl-bottom-right')
       }
     });
-  }
+  },
+    'click .select-username'(event,instance){
+        console.log(this);
+    }
 })

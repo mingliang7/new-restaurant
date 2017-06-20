@@ -3,6 +3,9 @@ InterestSchema = new SimpleSchema({
         type: Object,
         optional: true
     },
+    username: {
+      type: String
+    },
     "profile.interest": {
         type: Object,
         optional: true,
