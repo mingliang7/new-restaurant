@@ -190,10 +190,7 @@ Meteor.methods({
                     Restaurant.Collection.SaleDetails,
                     newSaleId, 2);
                 saleDetail.isPrinting = true;
-                saleDetail.amount = (saleDetail.quantity +
-                    saleDetail.quantityOut) * saleDetail.price;
-                saleDetail.quantity = saleDetail.quantity +
-                    saleDetail.quantityOut;
+                saleDetail.amount = saleDetail.quantity * saleDetail.price;
                 Restaurant.Collection.SaleDetails.insert(
                     saleDetail);
             });
