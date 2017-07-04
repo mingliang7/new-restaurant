@@ -18,18 +18,18 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
     type: Number,
     label: "Discount",
     decimal: true,
-    defaultValue(){
-        return 0;
+    defaultValue() {
+      return 0;
     }
   },
   quantity: {
     type: Number,
     label: "Quantity"
   },
-  quantityOut:{
+  quantityOut: {
     type: Number,
     label: 'ចំនួនដកចេញ',
-      optional: true
+    optional: true
   },
   amount: {
     type: Number,
@@ -48,8 +48,8 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   status: {
     type: String,
     label: "Status",
-    autoValue(){
-      if(this.isInsert){
+    autoValue() {
+      if (this.isInsert) {
         return 'unsaved'
       }
     }
@@ -60,15 +60,15 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
     autoform: {
       type: 'select-checkbox',
       multiple: true,
-      options(){
+      options() {
         let list = [];
         let sub = Meteor.subscribe("notes");
-        if(!sub.ready()){
+        if (!sub.ready()) {
           IonLoading.show();
-        }else{
+        } else {
           IonLoading.hide();
           Restaurant.Collection.Notes.find().forEach((note) => {
-            list.push({label: note.name, value: note.name});
+            list.push({ label: note.name, value: note.name });
           });
           return list;
         }
@@ -78,7 +78,7 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   qtyPrinted: {
     type: Number,
     optional: true,
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
         return 0;
       }
@@ -86,15 +86,15 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   },
   isPrinting: {
     type: Boolean,
-    autoValue(){
-      if(this.isInsert){
+    autoValue() {
+      if (this.isInsert) {
         return true;
       }
     }
   },
   monitor: {
     type: Boolean,
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
         return false;
       }
@@ -102,41 +102,41 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   },
   isCooking: {
     type: Boolean,
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
         return false;
       }
     }
   },
-  isFinishing:{
+  isFinishing: {
     type: Boolean,
-    autoValue: function() {
+    autoValue: function () {
       if (this.isInsert) {
         return false;
       }
     }
   },
   cookQty: {
-      type: Number,
-      autoValue: function(){
-        if(this.isInsert){
-          return 0;
-        }
+    type: Number,
+    autoValue: function () {
+      if (this.isInsert) {
+        return 0;
       }
+    }
   },
   notify: {
     type: Boolean,
-    autoValue: function(){
-      if(this.isInsert || this.isUpdate){
+    autoValue: function () {
+      if (this.isInsert || this.isUpdate) {
         return true;
       }
     }
   },
-  transferOrSplit:{
+  transferOrSplit: {
     type: Boolean,
     optional: true
   },
-  _product:{
+  _product: {
     type: Object,
     blackbox: true,
     optional: true

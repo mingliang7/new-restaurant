@@ -76,7 +76,7 @@
                         <!--<th align="right">Paid Amount</th>-->
                         <!--<th align="right">Owed Amount</th>-->
                         <th>សរុបរង</th>
-                        <th>បញ្ចុះ(%)</th>
+                        <th>បញ្ចុះ</th>
                         <th align="right">សរុប</th>
                         {{#each grandTotalConvert}}
                             <th align="right">{{toCurrencyId}}</th>
@@ -102,7 +102,7 @@
                             <!--<td align="right">{{owedAmount}}</td>-->
                             <td align="right">{{numFormat subTotal '0,0'}}</td>
                             <td align="center">
-                              {{discount}}
+                              {{discount}} {{display discountType}}
                             </td>
                             <td align="right">{{total}}</td>
                             {{#each exchangeRates}}

@@ -54,6 +54,12 @@ Template.restaurantSaleDetailProductReportGen.helpers({
     },
     partial(status) {
         return status == 'partial'
+    },
+    display(discountType){
+        if(discountType == 'percentage'){
+            return '%';
+        }
+        return '';
     }
 });
 

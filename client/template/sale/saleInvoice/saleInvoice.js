@@ -50,11 +50,11 @@ Template.restaurantSaleTableSaleInvoice.helpers({
         return Restaurant.Collection.SaleDetails.find({
             saleId: saleId
         }, {
-            sort: {
-                _id: 1
-            },
-            // limit: limit
-        });
+                sort: {
+                    _id: 1
+                },
+                // limit: limit
+            });
     },
     saleInvoice() {
         let saleDoc = Restaurant.Collection.Sales.findOne(Router.current()
@@ -85,7 +85,7 @@ Template.restaurantSaleTableSaleInvoice.helpers({
     }
 });
 Template.restaurantSaleTableSaleInvoice.events({
-    "click .loadMore" () {
+    "click .loadMore"() {
         let saleId = Router.current().params.invoiceId;
         let limit = Session.get('saleDetailLimited') + 5;
         Session.set('saleDetailLimited', limit);
@@ -124,7 +124,7 @@ Template._sale_invoice_tabs.helpers({
 });
 
 Template.saleDetail.events({
-    'change .qtyOut' (event, instance) {
+    'change .qtyOut'(event, instance) {
         let currentValue = event.currentTarget.value;
         let currentQtyIn = this.quantity + this.quantityOut;
         if (currentValue == '' || (currentValue != '' && currentQtyIn < parseFloat(currentValue)) || parseFloat(currentValue) < 0) {
@@ -137,23 +137,23 @@ Template.saleDetail.events({
         let charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     },
-    'click .qty-in-up'(event, instance){
+    'click .qty-in-up'(event, instance) {
         let qtyInValue = $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val();
         $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val(parseFloat(qtyInValue) + 1).trigger('change');
     },
-    'click .qty-in-down'(event, instance){
+    'click .qty-in-down'(event, instance) {
         let qtyInValue = $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val();
         $(event.currentTarget).parents('.qty-change-in').find('.qtyIn').val(parseFloat(qtyInValue) - 1).trigger('change');
     },
-    'click .qty-out-up'(event, instance){
+    'click .qty-out-up'(event, instance) {
         let qtyOutValue = $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val();
         $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val(parseFloat(qtyOutValue) + 1).trigger('change');
     },
-    'click .qty-out-down'(event, instance){
+    'click .qty-out-down'(event, instance) {
         let qtyOutValue = $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val();
         $(event.currentTarget).parents('.qty-change-out').find('.qtyOut').val(parseFloat(qtyOutValue) - 1).trigger('change');
     },
-    'change .qtyIn' (event, instance) {
+    'change .qtyIn'(event, instance) {
         let currentQty = parseFloat($(event.currentTarget).attr('qtyIn'));
         let currentQtyOut = parseFloat($(event.currentTarget).attr('qtyOut'));
         let currentValue = event.currentTarget.value;
@@ -168,7 +168,7 @@ Template.saleDetail.events({
         let charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     },
-    'click .remove-sale-detail' () {
+    'click .remove-sale-detail'() {
         let data = this;
         IonPopup.confirm({
             title: 'តើអ្នកត្រូវការលុបឬ?',
@@ -191,7 +191,7 @@ Template.saleDetail.events({
             }
         });
     },
-    'click .detach' (e) {
+    'click .detach'(e) {
         let numberOfCustomer = $('.numberOfCustomer').text().trim();
         let detachObj = Session.get('detachSaleDetailObj');
         let currentProp = $(e.currentTarget).prop('checked');
@@ -223,7 +223,7 @@ Template.tableHeader.helpers({
 
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 Template.saleInvoiceTotal.events({
-    "click .save-officer-cheque" () {
+    "click .save-officer-cheque"() {
         let invoiceId = Router.current().params.invoiceId;
         Meteor.call('saveOfficerCheque', invoiceId, (err, result) => {
             if (err) {
@@ -236,6 +236,12 @@ Template.saleInvoiceTotal.events({
     }
 });
 Template.saleInvoiceTotal.helpers({
+    display(discountType) {
+        if (discountType == 'percentage') {
+            return '%';
+        }
+        return '';
+    },
     isOfficerCheque(type) {
         if (type == 'officer') {
             return true;
@@ -349,9 +355,9 @@ Template._sale_invoice_tabs.helpers({
 
 
 Template._sale_invoice_tabs.events({
-    'click .fastSell' (event, instance) {
+    'click .fastSell'(event, instance) {
         Meteor.call('insertSale', undefined, moment().toDate(), (err,
-                                                                 result) => {
+            result) => {
             if (err) {
                 Bert.alert(err.message, 'danger',
                     'growl-bottom-right');
@@ -364,7 +370,7 @@ Template._sale_invoice_tabs.events({
             }
         });
     },
-    'click .cancel-and-copy' () {
+    'click .cancel-and-copy'() {
         let params = Router.current().params;
         let invoiceId = params.invoiceId;
         let tableLocationId = params.tableLocationId;
@@ -408,7 +414,7 @@ Template._sale_invoice_tabs.events({
             }
         });
     },
-    'click .cancel-invoice' () {
+    'click .cancel-invoice'() {
         let invoiceId = Router.current().params.invoiceId;
         IonPopup.confirm({
             title: 'បញ្ជាក់',
@@ -443,12 +449,12 @@ Template._sale_invoice_tabs.events({
             }
         });
     },
-    'click .sale-print' () {
+    'click .sale-print'() {
         let invoiceId = Router.current().params.invoiceId;
         Meteor.call('setPrintToFalse', invoiceId);
         Router.go('/restaurant/sale-print/' + invoiceId);
     },
-    'click .detachSaleDetail' () {
+    'click .detachSaleDetail'() {
         let params = Router.current().params;
         let detachObj = Session.get('detachSaleDetailObj');
         IonPopup.confirm({

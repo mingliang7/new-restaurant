@@ -22,8 +22,8 @@ Restaurant.Collection.Sales.search = function (query, saleId) {
 
         }]
     }, {
-        limit: 5
-    });
+            limit: 5
+        });
 }
 Restaurant.Collection.Sales.searchByTable = function (query, locations, status, date, limit) {
     if (!query) {
@@ -46,7 +46,7 @@ Restaurant.Collection.Sales.searchByTable = function (query, locations, status, 
         }
     }
     if (status == 'closed') {
-        selector.status = {$in: ['closed', 'canceled']}
+        selector.status = { $in: ['closed', 'canceled'] }
         selector.$or = [{
             _id: {
                 $regex: reg
@@ -112,6 +112,29 @@ Restaurant.Schema.Sales = new SimpleSchema({
         autoValue() {
             if (this.isInsert) {
                 return 0;
+            }
+        }
+    },
+    discountType: {
+        type: String,
+        label: "Discount Type",
+        autoform: {
+            type: 'select-radio',
+            options() {
+                return [
+                    {
+                        label: 'Amount', value: 'amount'
+                    },
+                    {
+                        label: 'Percentage(%)',
+                        value: 'percentage'
+                    }
+                ]
+            }
+        },
+        autoValue() {
+            if (this.isInsert) {
+                return 'percentage';
             }
         }
     },
@@ -282,7 +305,7 @@ Restaurant.Schema.Sales = new SimpleSchema({
     },
     'eop.status': {
         type: Boolean,
-        autoValue(){
+        autoValue() {
             if (this.isInsert) {
                 return false;
             }

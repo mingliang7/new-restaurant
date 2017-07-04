@@ -30,7 +30,7 @@ Template.restaurantSaleTableSaleInvoiceEditSale.helpers({
     }
 });
 Template.restaurantSaleTableSaleInvoiceEditSale.events({
-    'change [name="customerId"]'(event){
+    'change [name="customerId"]'(event) {
         let invoiceId = Router.current().params.invoiceId;
         let customerId = event.currentTarget.value;
         if (customerId != '') {
@@ -72,19 +72,34 @@ Template.restaurantSaleTableSaleInvoiceEditDiscount.helpers({
     }
 });
 Template.restaurantSaleTableSaleInvoiceEditDiscount.events({
-    "keyup [name='discount']" (event, template) {
+    "change [name='discountType']"() {
+        let currentSubTotal = parseFloat($('[name="subTotal"]').val());
+        $("[name='total']").val(currentSubTotal);
+        $("[name='balanceAmount']").val(currentSubTotal);
+        $('[name="discount"]').val('0');
+    },
+    "keyup [name='discount']"(event, template) {
+        let discountType = $("[name='discountType']:checked").val()
         let discount = $('[name="discount"]').val();
         let currentSubTotal = parseFloat($('[name="subTotal"]').val());
         if (discount != '') {
-            if (parseFloat(discount) < 0 || parseFloat(discount) > 100) {
+            if (parseFloat(discount) < 0 || parseFloat(discount) > currentSubTotal || (discountType == 'percentage' && parseFloat(discount) > 100)) {
                 $('[name="discount"]').val('0');
+                $("[name='total']").val(currentSubTotal);
+                $("[name='balanceAmount']").val(currentSubTotal);
             } else {
-                $("[name='total']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
-                $("[name='balanceAmount']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
+                if (discountType == 'percentage') {
+                    $("[name='total']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
+                    $("[name='balanceAmount']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
+                } else {
+                    let amountAfterDiscount = parseFloat(currentSubTotal) - (parseFloat(discount));
+                    $("[name='total']").val(amountAfterDiscount);
+                    $("[name='balanceAmount']").val(amountAfterDiscount);
+                }
             }
         }
     },
-    'change [name="vipcard"]' (e) {
+    'change [name="vipcard"]'(e) {
         Meteor.call('getVipCard', $(e.currentTarget).val(), (err, result) => {
             if (err) {
                 $('[name="discount"]').val(0).keyup();
@@ -101,7 +116,7 @@ Template.restaurantSaleTableSaleInvoiceEditDiscount.events({
             }
         });
     },
-    'click [name="vipcard"]' (e) {
+    'click [name="vipcard"]'(e) {
         $(e.currentTarget).select();
     }
 });
