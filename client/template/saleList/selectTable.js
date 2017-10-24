@@ -1,5 +1,7 @@
 Template.restaurantSelectTable.created = function () {
   Session.set('saleDetailObj', {}); //set saleDetailObj for order product
+  console.log('select table')
+  Meteor.call('emptySale', Meteor.userId())  
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("existSales");
   });
