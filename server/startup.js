@@ -17,7 +17,7 @@ Meteor.startup(function() {
     if (Meteor.users.find().count() <= 0) {
         let superId = Accounts.createUser({
             username: 'super',
-            email: 'super@rabbit.com',
+            email: 'super@h2e.com',
             password: 'super123',
             approved: true
         })
@@ -44,13 +44,13 @@ Meteor.startup(function() {
     if (Restaurant.Collection.Company.find().count() == 0) {
 
         var company = {
-            khName: "រ៉ាប៊ីត",
-            khShortName: "រ៉ាប៊ីត",
-            enName: "Rabbit Training Center",
-            enShortName: "RTC",
-            khAddress: "បាត់ដំបង",
-            enAddress: "Battambang",
-            telephone: "096753432",
+            khName: "H2E TECH",
+            khShortName: "H2E TECH",
+            enName: "H2E TECH",
+            enShortName: "H2E TECH",
+            khAddress: "PP",
+            enAddress: "PP",
+            telephone: "015427757",
             email: "example@gmail.com",
             baseCurrency: "USD"
         };
