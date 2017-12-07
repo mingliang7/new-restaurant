@@ -3,7 +3,7 @@ Template.current_user.onCreated(function() {
     this.query = new ReactiveVar();
     this.tableId = new ReactiveVar('all');
     this.autorun(()=>{
-        let saleDate = moment().startOf('days').toDate();
+        let saleDate = moment().subtract(1,'days').startOf('days').toDate();
         let q = this.query.get();
         let tableId = this.tableId.get();
         if(tableId || q){
