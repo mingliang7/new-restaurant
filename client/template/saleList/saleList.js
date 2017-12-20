@@ -94,7 +94,7 @@ Template.restaurantSaleList.events({
                 )
             }
         });
-        $('.search').focus();
+        // $('.search').focus();
     },
     'click .remove-sale-detail' () {
         let saleDetailObj = Session.get('saleDetailObj');
